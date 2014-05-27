@@ -84,7 +84,7 @@ try:
     arcpy.ManageMapServerCacheTiles_server(inputService, firstCacheScales, "RECREATE_ALL_TILES", "2", "", firstAOI, "WAIT")
     finishFirstCache = time.time()
 
-    #Uncomment the lines below to run the ManageMapServerCacheTiles_server a second time if you want to run certain scale levels at a different extent
+    ##Uncomment the lines below to run the ManageMapServerCacheTiles_server a second time if you want to run certain scale levels at a different extent
 ##    startSecondCache = time.time()
 ##    arcpy.ManageMapServerCacheTiles_server(inputService, secondCacheScales, "RECREATE_ALL_TILES", "2", "", secondAOI, "WAIT")
 ##    finishSecondCache = time.time()
