@@ -13,6 +13,6 @@ Rather than run a resource-hogging cache process on our production server and ri
 
 CacheAndCopy.py automates this process when you use it with Task Scheduler or Chron.
 
-To get CacheAndCopy up and running on your stagign server you just need to replace the paths for a few variable in the script:
+To get CacheAndCopy up and running on your staging server you just need to replace the paths for a few variable in the script:
 
 stagingServerLevelFoldersLocation = "[Your local drive letter on staging server]:\arcgisserver\directories\arcgiscache\[Your Map Service Name]\Layers\_alllayers" productionServerLayersFoldersLocation = "[Your local drive letter on production server]:\arcgisserver\directories\arcgiscache\[Your Map Service Name]\Layers" connectionFile = r"[Your local drive letter]:\Users[Your OS user name]\AppData\Roaming\ESRI\Desktop10.1\ArcCatalog\" server = "Your server name" serviceName = "\[Your service name].MapServer" reportfile = r'C:/[An arbitrary folder location]/report.txt' firstCacheScales = [[Add your scale levels here]] firstAOI = "[Enter an area of interest (map extent)]"
