@@ -11,7 +11,7 @@
 
 
 # Import arcpy module
-import arcpy, shutil, os, sys, time, datetime, traceback, string
+import arcpy, shutil, os, sys, time, datetime
 
 
 
@@ -84,7 +84,7 @@ try:
     arcpy.ManageMapServerCacheTiles_server(inputService, firstCacheScales, "RECREATE_ALL_TILES", "2", "", firstAOI, "WAIT")
     finishFirstCache = time.time()
 
-    """Run the ManageMapServerCacheTiles_server a second time if you want to run certain scale levels at a different extent"""
+    #Uncomment the lines below to run the ManageMapServerCacheTiles_server a second time if you want to run certain scale levels at a different extent
 ##    startSecondCache = time.time()
 ##    arcpy.ManageMapServerCacheTiles_server(inputService, secondCacheScales, "RECREATE_ALL_TILES", "2", "", secondAOI, "WAIT")
 ##    finishSecondCache = time.time()
@@ -115,7 +115,7 @@ try:
     totalElapsedTime = convertTime(finishTime - startTime)
     firstCache = convertTime(finishFirstCache - startFirstCache)
 
-    """Enable the line below if you are using a secondary cache process form above """   
+    #Uncomment the line below if you are using a secondary cache process form above  
 ##    secondCache = convertTime(finishSecondCache - startSecondCache)
     moveCache = convertTime(endMove - startMove)
 
