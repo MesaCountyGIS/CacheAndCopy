@@ -10,8 +10,11 @@
 
 
 
-# Import arcpy module
-import arcpy, shutil, os, sys, time, datetime
+# Imports
+import arcpy, shutil, os, sys, time, datetime, smtplib
+from arcpy import env
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 
 
@@ -40,6 +43,11 @@ thisDate = currentTime.strftime("%Y-%m-%d %H:%M")
 ## Replace the path below to point to a location where the script report 
 reportfile = r'C:/[An arbitrary folder location]/report.txt'
 
+## 
+currentTime = datetime.datetime.now()
+timeArg1 = currentTime.strftime("%H-%M")
+timeArg2 = currentTime.strftime("%Y-%m-%d %H:%M")
+
 ## Enter the scales at which you will be caching. The scales entered below are for example only
 firstCacheScales = [1000000,500000,250000,125000,64000,32000,16000,8000]
 
@@ -62,12 +70,26 @@ secondAOI = "667911.625 4263095 812502.125 4363489.5"
 
 
 
-#calculate the number of hours various sections of the code take to run
+## calculate the number of hours various sections of the code take to run
 def convertTime(seconds)
     hours = (seconds/60)/60
     return hours
 
-print convertTime(7254)
+## small function to enable getting an email when the script is finished
+def emailUpdate(sender, recipients, message):
+    # Create message container - the correct MIME type is multipart/alternative.
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = "A Report from your friendly cache job"
+    msg['From'] = sender
+    msg['To'] = ", ".join(recipients)
+
+    mimedMessage = MIMEText(message, 'plain')
+
+    msg.attach(mimedMessage)
+
+    s = smtplib.SMTP('Your own smtprelay')
+    s.sendmail(sender, recipients, msg.as_string())
+    s.quit()
 
 #print results of the script to a report
 report = open(reportfile,'w')
@@ -124,11 +146,13 @@ try:
 ##    Uncomment the line below if you are running a secondCache above             
 ##                 "Low level cache completed in: " + str(secondCache) +  "hours\n" +
                  "Moving the cache took: " + str(moveCache) + " hours\nDate Completed: " + str(thisDate))
+    emailUpdate("email address you are sending the message from", ['email address you are sending message to'], "Cache finished successfully")
 
 except Exception, e:
     print e
     #If an error occurred, print line number and error message
     tb = sys.exc_info()[2]
+    emailUpdate("email address you are sending the message from", ['email address you are sending message to'], "Cache process failed at \n" "Line %i" % tb.tb_lineno)
     report.write("Failed at \n" "Line %i" % tb.tb_lineno)
     report.write(e.message)
 
