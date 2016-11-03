@@ -9,7 +9,7 @@ Ryan Davison gis@mesacounty.us
 
 At Mesa County we do a lot of caching of ArcGIS services for our web applications. Some of our vector caches need to be updated on a regular basis. Because of the large extent of the county, these vector caches can be fairly large and take a lot of time to complete.
 
-Rather than run a resource-hogging cache process on our production server and risk our users having a degraded experience we cache on a staging server and then copy the layer level folders (L00, L01, L02...) to the production server that already has an identical service prepared with the same tiling scheme as the cached service on the staging server.
+Rather than run a resource-hogging cache process on our production server and risk our users having a degraded experience, we cache on a staging server and then copy the layer level folders (L00, L01, L02...) to the production server that already has an identical service prepared with the same tiling scheme as the cached service on the staging server.
 
 CacheAndCopy.py automates this process when you use it with Task Scheduler or Chron.
 
